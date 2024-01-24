@@ -19,7 +19,7 @@ const breadsControllers = require('./controllers/breads_controller')
 app.use('/breads', breadsControllers)
 
 app.get('*', (req, res) => {
-    res.send('404')
+    res.render('error404')
 })
 
 app.listen(PORT, () =>{
