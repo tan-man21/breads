@@ -11,6 +11,9 @@ app.engine('jsx', require('express-react-views').createEngine())
 app.use(express.static('public'))
 app.use(express.urlencoded({extended: true}))
 
+const methodOverride = require('method-override')
+app.use(methodOverride('_method'))
+
 app.get('/', (req, res) => {
 
     res.send('Welcome to an Awesome app about Breads')
@@ -18,9 +21,6 @@ app.get('/', (req, res) => {
 
 const breadsControllers = require('./controllers/breads_controller')
 app.use('/breads', breadsControllers)
-
-const methodOverride = require('method-override')
-app.use(methodOverride('_method'))
 
 app.get('*', (req, res) => {
     res.render('error404')
