@@ -1,8 +1,12 @@
 const express = require('express')
-
 require('dotenv').config()
 const PORT = process.env.PORT
 const app = express()
+const mongoose = require('mongoose')
+main().catch(err => console.log(err));
+async function main(){
+    await mongoose.connect(process.env.MONGO_URI)
+}
 
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jsx')
