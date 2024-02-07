@@ -3,19 +3,16 @@ const breads = express.Router()
 const Bread = require('../models/bread')
 const Baker = require('../models/baker')
 
-breads.get('/', (req, res) => {
-  Baker.find()
-    .then(foundBakers => {
-      Bread.find()
-      .then(foundBreads => {
+breads.get('/', async (req, res) => {
+      const foundBakers = await Baker.find()
+      const foundBreads = await Bread.find()
+      console.log(foundBreads)
         res.render('index', {
           breads: foundBreads,
           bakers: foundBakers,
           title: 'Index Page'
       })
     })
-    })
-})
 
 // CREATE
 breads.post('/', (req, res) => {
@@ -81,18 +78,14 @@ breads.put('/:id', (req, res) => {
 })
 
 //EDIT
-breads.get('/:id/edit', (req, res) => {
-  Baker.find()
-    .then(foundBakers => {
-      Bread.findById(req.params.id)
-    .then(foundBread => {
+breads.get('/:id/edit', async (req, res) => {
+    const foundBakers = await Baker.find()
+    const foundBreads = await Bread.find()
       res.render('edit', {
-        bread: foundBread,
+        bread: foundBreads,
         bakers: foundBakers
       })
     })
-    })
-})
 
 
 breads.get('/new', (req, res) => {
